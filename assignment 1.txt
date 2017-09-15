@@ -1,0 +1,301 @@
+1.Hiking
+
+   Things :
+
+	ReachNow :
+		Data : Collection of Cars, Availability, Pricing, Address
+		Behavior : LocateCar, Authorize
+
+	Car :
+		Data : Registration, Insurance, Make, Model, Color, FuelType, BodyStyle
+
+	Customer :
+		Data : Name, Address, Phone
+		Behavior : DriveCar, DropCar, Refuel, Search, Review, Pay, Compare, BookHotel, CancelHotelBooking, OrderFood, FillGas
+
+	GasStation :
+		Data : Fuel, Address, BankAccount
+
+	Restaurant :
+		Data : Menu, Price, Address, Phone, BankAccount
+		Behavior : ReceiveOrder, ConfirmOrder
+
+	Park :
+		Data : Address, Phone, Prices, Ticket, BankAccount
+		Behavior : Open, Close
+
+	Hotel :
+		Data : Address, Phone, Availability, Type, BankAccount
+		Behavior : ConfirmBooking, CancelBooking
+
+	CreditCard :
+		Data : Number, Name, Company, Expiry, SecurityCode, Balance
+
+	CreditCardCompany :
+		Behavior : AuthorizeTransaction, DeclineTransaction
+
+	Internet :
+		Data : GroupOfWebsites
+		Behavior : SearchForHotels
+
+Sequence of invoking behaviors on Objects:
+
+Rent a ReachNow to drive to mountain rainier on weekends with friends:
+
+	Customer customer,
+	Internet internet,
+	Website websites[],
+	ReachNow reachNow[],
+	Car car,
+	GasStation Shell,
+	Restaurant pizzaHut,
+	Food myFood,
+	Park cougarRock,
+	Hotel hotel,
+	ShoppingConfirmation response
+
+	If reachNow!=null
+		customer.searchReachNow -> reachNow, question: CollectionOfCars
+		reachNow.searchForCar -> priceRange, color, brand, bodyStyle, fuel : Car
+		Car = car
+		customer.bookCar -> car, address, CreditCard, ShoppingConfirmation
+		response = ShoppingConfirmation
+
+		customer.driveToNearestGasStation -> GasStation
+		customer.fillGas -> fuel, shell : ShoppingConfirmation
+		response = ShoppingConfirmation
+		
+		customer.driveToNearestRestaurant -> Restaurant : pizzaHut
+		pizzaHut.searchForPizza -> price, crust, toppings, size
+		myFood = pizza
+		customer.purchaseFood -> pizza, creditCard, address, pizzaHut = order confirmation
+		response = orderconfirmation
+
+		customer.driveToNearestPark -> Park : cougarRock
+		if park.open!=False
+			customer.purchaseTickets -> numberOfTickets, creditCard, park = order confirmation
+			response = orderconfirmation
+		else
+			customer.parkIsClosed
+
+		if Internet.isAvailable
+			customer.searchInInternet -> internet, question : find  Hotel website
+			customer.findDesirableWebsite -> internet, website
+			hotels = website
+			if hotels is available or hotels!=null
+				hotels.searchForHotels -> price, address, type, phone
+					Hotel = hotel
+				customer.bookHotel -> name, phone, CreditCard, hotel = orderconfirmation
+				response = orderconfirmation
+			else
+				hotel.isNotAvailable
+		else
+			Internet.IsNotAvailableTryAfterSomeTime
+	else
+		reachNow.NotAvailableTryAfterSomeTime
+
+--------------------------------------------------------
+
+2. Career fair
+
+Things :
+
+	Organiser :
+		Data: Name, Address, Phone
+		Behaviors : AcceptApplication, DeclineApplication
+	
+	Employer :
+		Data : Name, Address, Phone, Job
+		Behaviors : Apply, Interview, AcceptApplication, declineApplication, Hire 
+	
+	
+	Applicant : 
+	
+		Data : Name, Address, Phone, Email, Skills, Qualification
+		Behaviors : Apply, AttendInterview, SelectOffer, DeclineOffer
+	
+Sequence of invoking behaviors on Objects:
+
+OrganisingCareerFair:
+
+	CareerFair careerFair
+	Applicant applicant,
+	Employer company,
+	Organiser organiser,
+	Confirmation response
+
+
+If Organisation.acceptApplication = true
+	company.participateInCareerFair -> careerFair, organiser : confirmation
+	response = confirmation
+
+	applicant.enrollInCareerFair -> name, address, phone, skills, qualification, email, organiser : confirmation
+	response = confirmation
+
+	applicant.attendInterview -> name, address, phone, skills, qualification, company, company : confirmation
+	response = confirmation
+	if confirmation!=null
+		company.hireApplicant -> applicant
+	else
+		comapny.declineApplicant
+
+Else
+	Organiser.notAcceptingApplications
+
+
+----------------------------------------------------------------------------------
+
+
+3. Order Pizza from Pizza Hut.
+
+   Things :
+
+	Customer :
+		Data : Name, Address, Phone
+		Behavior : Search, Order, Buy, Cancel
+
+	Internet :
+		Data : PizzaHut website
+		Behavior : searchForPizzaHutWebsite, Connect to Website
+
+	Website :
+		Data : URL, Product[], BankAccount
+		Behavior : Search, Sort, Display, placeOrder, cancelOrder
+
+	Pizza :
+		Data : Crust, Toppings, Size, Price, Quantity
+		Behavior :
+
+	CreditCard :
+		Data : Number, Name, Company, Expiry, SecurityCode
+		Behavior :
+
+	CreditCardCompany :
+		Data : 
+		Behavior : authorizeTransaction, declineTransaction
+
+   Sequence of invoking behaviors on Objects :
+
+   BuyPizzaFromPizzaHut :
+
+		Customer customer,
+		Internet internet,
+		Website pizzaHut,
+		Pizza myPizza,
+		CreditCard card,
+		CreditCardCompany visa,
+		ShoppingConfirmation response
+
+
+		if Internet.isAvailable
+			customer.searchInInternet -> internet, question : find  PizzaHut website
+			customer.findDesirableWebsite -> internet, website
+			pizzaHut = website
+			if pizzaHut is available or pizzaHut!=null
+				loop
+					if customer.wantsToAddPizza
+						pizzaHut.searchForPizza -> price, crust, toppings, size
+						myPizza = pizza[]
+						quantity = 1
+						loop
+							if customer.wantsToIncreaseQuantity
+								quantity = quantity + 1
+							else
+								break
+					else
+						break				
+			customer.purchasePizza -> pizza[], creditCard, address, pizzaHut = order confirmation
+			response = orderconfirmation
+			else
+				customer.cantBuyPizza
+		else
+			customer.internetNotAvailableTryAfterSomeTime
+
+
+
+---------------------------------------------------------------------------------------------
+
+4. Code Sharing Platform
+
+
+Things :
+
+	User : 
+		Data : Name, EmailId, Phone, Address, Repositories, LoginId, Password
+		Behaviors : CreateRepository, DeleteRepository, GivePermissions, FollowUsers, UnfollowUsers, createProfile, LoginIn, LogOut
+
+	CodeSharingPlatform
+
+		Data : Name, URL
+		Behaviors : Authorize
+
+Sequence of Flow - Invoke Objects with Behaviors
+
+User user
+CodeSharingPlatform gitHub
+
+If user.alreadyRegisterd!=True
+	user.createProfile -> Name, email, phone, address, loginId, password
+else
+	user.loginToCodeSharingPlatform -> gitHub : authorize
+
+	if authorize is true
+		user.login -> gitHub
+
+		user.createRepository -> name, accessrights
+		user.deleteRepository -> name
+		user.followUsers -> name
+		user.unfollowUsers -> name
+
+	else
+		user.loginCredentialsAreWrongTryAgain
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+5. Vending Machine
+
+Things :
+
+	Consumer :
+		
+		Behaviors : select items, pay, cancel 
+	
+	VendingMachine
+		 
+		Data : Products
+		Behaviors : Deliver items
+	 
+	CreditCard
+	
+		Data : Number, name, company, expiry, security code 
+		
+	CreditCardCompany
+	
+		Behavior : authorizeTransaction
+		
+Sequence of invoking behaviors on Objects:
+
+VendingMachine:
+
+	Consumer consumer,
+	VendingMachine vendingMachine
+	Products product[],
+	CreditCard card,
+	CreditCarCompany visa,
+	ShoppingConfirmation response
+
+	If vendingMachine is not empty or vendingMachine!=null
+		loop 
+			if consumer.wantsToSelectMoreItems
+				consumer.selectItemsInVendingMachine -> product
+				product[] = product
+			else
+				break	
+		consumer.purchaseProducts -> product[], creditCard, vendingMachine : shoppingConfirmation
+		response = shoppingConfirmation
+	Else
+		consumer.vendingMachineIsEmptyTryAgainLater
+ 
+
+--------------------------------------------------------------------------------------------------------------------------
