@@ -1,0 +1,175 @@
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class Assignment2 {
+
+	
+	public static void main(String args[] )
+	{
+		double es = new Assignment2().employeeSalary();
+		System.out.println(es);
+		
+		
+		System.out.println(addDigits(1));
+		
+		System.out.println(printPerfectNumbers(4));
+		
+		System.out.println(triangle(6));
+		
+		
+	}
+	
+	
+	
+	//1.Salary of an employee
+	
+	public double employeeSalary()
+	{
+		System.out.println("Enter number of hours the employee has worked\n");
+		Scanner scan = new Scanner(System.in);
+		int hours=scan.nextInt();
+		double salary = 0;
+		if(hours > 48)
+		{
+			System.out.println("Employee can't work for more than 48 hours");
+		}
+		else
+			if (hours <= 36)
+			{
+				salary = hours * 15.0;
+				System.out.println("Salary of the employee for "+hours+" hours is");
+			}
+			else
+				if (hours <= 41)
+				{
+					salary = (36 * 15.0) + ((hours-36) * 15 * 1.5);
+					System.out.println("Salary of the employee for "+hours+" hours is");
+				}
+				else
+				{
+					salary = (36 * 15.0) + (5 * 15 * 1.5) + ((hours - 41) * 2);
+					System.out.println("Salary of the employee for "+hours+" hours is");
+				}
+		return salary;
+	
+	}
+	
+	
+	//2.Add digits
+	
+	
+	public static int addDigits (int number)
+	{
+		if (number < 10)
+		{
+			System.out.println("Sum of individual digits is"+number);
+		}
+		else
+		{
+			int temp = number;
+			int sum = 0;
+			while (temp > 0)
+			{
+				sum = sum + temp%10;
+				temp = temp/10;
+			}
+			System.out.println("Sum of indiviudual digits is"+sum);
+		}
+		
+		return 0;
+		
+		
+	}
+	
+	
+	
+	//3. Perfect Number
+	
+	public static int printPerfectNumbers( int n)
+	{
+		int sum=0;
+		for (int i=1; i<n; i++)
+		{
+			if(n%i==0)
+			{
+				sum= sum+i;
+			}
+		}
+		if (sum==n)
+		{
+			System.out.println("perfect number");
+			return (n);
+		}
+		else
+		{
+			System.out.println("not perfect number");
+			return (n);
+		}
+	}
+	
+	
+	
+	
+	//4. Java class called pizza with at least 3 attributes and constructors
+	
+	public class Pizza 
+	{
+		String name_pizza;
+		int price, loyaltypoints;
+		public Pizza(String name, int pr,int lp)
+		{
+			this.name_pizza=name;
+			this.price = pr;
+			this. loyaltypoints = lp;
+		}
+		
+	}
+	
+	
+	
+	
+	//5.Triangle
+	
+	
+	public static int triangle(int n)
+	{
+		for(int i=1;i<=n;i++)
+		{
+			System.out.println();
+			for (int j=1; j<=i; j++)
+			{
+				if(j==1)
+				{
+					System.out.print("*");
+					
+				}
+				else
+				{
+					if(i==j)
+					{
+						System.out.print("*");
+					}
+					else
+					{
+						if(i==n)
+						{
+							System.out.print("*");
+						
+						}
+						else
+						{
+							System.out.print(" ");
+						}
+					}
+				}
+			}
+		}
+
+	return 0;
+	}
+	
+
+	
+	
+	
+}
