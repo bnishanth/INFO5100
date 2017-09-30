@@ -1,3 +1,8 @@
+/* Need to improve
+ * score 4.5 + extra credit 2; Total score 6.5
+ * Try to attempt all the questions along with extra credit
+ * contact us if anything is not understood
+ */
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -22,8 +27,8 @@ public class Assignment2 {
 	
 	
 	//1.Salary of an employee
-	
-	public double employeeSalary()
+	// score 1
+	public double employeeSalary() // function should have an argument. For hours greater than 48, You should return pay of 48
 	{
 		System.out.println("Enter number of hours the employee has worked\n");
 		Scanner scan = new Scanner(System.in);
@@ -57,8 +62,9 @@ public class Assignment2 {
 	
 	//2.Add digits
 	
-	
-	public static int addDigits (int number)
+	// score 0.5
+	public static int addDigits (int number)// the function always returns 0. it should return sum. you are printing sum.
+	// for input 37. expected output 1, you are printing 10
 	{
 		if (number < 10)
 		{
@@ -84,8 +90,8 @@ public class Assignment2 {
 	
 	
 	//3. Perfect Number
-	
-	public static int printPerfectNumbers( int n)
+	// score 1
+	public static int printPerfectNumbers( int n) // the function should print all the perfect numbers between 1 and n
 	{
 		int sum=0;
 		for (int i=1; i<n; i++)
@@ -111,7 +117,7 @@ public class Assignment2 {
 	
 	
 	//4. Java class called pizza with at least 3 attributes and constructors
-	
+	// score 2
 	public class Pizza 
 	{
 		String name_pizza;
@@ -130,7 +136,7 @@ public class Assignment2 {
 	
 	//5.Triangle
 	
-	
+	// extra credit 2
 	public static int triangle(int n)
 	{
 		for(int i=1;i<=n;i++)
