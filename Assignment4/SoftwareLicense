@@ -1,0 +1,43 @@
+package com.company;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+    Main slk = new Main();
+    slk.softwareLicense("12345678",7);
+
+    }
+
+    public void softwareLicense (String key, int k)
+    {
+
+        System.out.println("Initial key -> "+key);
+
+        int temp =0;
+
+        
+        key = key.replaceAll("-","");
+
+        String newkey = "";
+
+        for (int i=(key.length()-1); i>=0; i--)               //inserting '-' at every k+1 position from the end
+        {
+            temp = temp +1;
+            newkey = newkey + key.charAt(i);
+            if (temp%k == 0 && temp != key.length())
+            {
+                newkey = newkey+"-";
+            }
+        }
+	      key = key.toUpperCase();
+
+        System.out.print("New key -> ");
+        for (int i=(newkey.length()-1);i>=0;i--)
+        {
+            System.out.print(newkey.charAt(i));
+        }
+
+    }
+
+}
