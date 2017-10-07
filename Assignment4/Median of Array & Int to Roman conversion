@@ -1,0 +1,166 @@
+package com.company;
+
+
+public class Assignment4 {
+
+    public static void main(String[] args) {
+
+        Assignment4 roman = new Assignment4();
+        String str = roman.intToRoman(3465);
+
+        Assignment4 medi = new Assignment4();
+        int[] nums1 = {45,11};
+        int[] nums2 = {93,36};
+        double nums = medi.findMedianSortedArrays(nums1, nums2);
+
+    }
+
+//5. Program to convert integer to roman
+
+    public String intToRoman(int num){
+        String roman="";
+        int tempnum = num;
+
+        if (tempnum > 0 && tempnum<=3999){
+            while (tempnum>=1000 ){
+                roman = roman + "M";
+                tempnum = tempnum - 1000;
+            }
+            while (tempnum < 1000 & tempnum >= 900) {
+                roman = roman + "CM";
+                tempnum = tempnum - 900;
+            }
+            while (tempnum < 900 & tempnum >= 500){
+                roman = roman + "D";
+                tempnum = tempnum - 500;
+            }
+            while (tempnum < 500 & tempnum >= 400){
+                roman = roman + "CD";
+                tempnum = tempnum -400;
+            }
+            while (tempnum < 400 & tempnum >=100){
+                roman = roman + "C";
+                tempnum = tempnum - 100;
+            }
+            while (tempnum < 100 & tempnum >=90){
+                roman = roman + "XC";
+                tempnum = tempnum - 90;
+            }
+            while (tempnum < 90 & tempnum >=50){
+                roman = roman + "L";
+                tempnum = tempnum - 50;
+            }
+            while (tempnum < 50 & tempnum >=40){
+                roman = roman + "XL";
+                tempnum = tempnum - 40;
+            }
+            while (tempnum < 40 & tempnum >=10){
+                roman = roman + "X";
+                tempnum = tempnum - 10;
+            }
+            while (tempnum == 9){
+                roman = roman + "IX";
+                tempnum = tempnum - 9;
+            }
+            while (tempnum < 9 & tempnum >=5){
+                roman = roman + "V";
+                tempnum = tempnum - 5;
+            }
+            while (tempnum == 4){
+                roman = roman + "IV";
+                tempnum = tempnum - 4;
+            }
+            while (tempnum < 4 & tempnum >=1){
+                roman = roman + "I";
+                tempnum = tempnum - 1;
+            }
+
+
+            System.out.println("Integer to Roman Numeral :" + num + " -> " + roman);
+        }
+
+        else{
+            System.out.println("Enter a valid number between 1 & 3999");
+        }
+
+        return roman;
+    }
+
+
+//6. Find the median of the arrays.
+
+
+    public double findMedianSortedArrays(int[] nums1, int[] nums2){
+        double median=0;
+        int temp;
+        int[] numbers = new int[nums1.length + nums2.length];
+
+        System.out.println("The numbers in the arrays are");
+        System.out.print("[ ");
+        for (int i=0; i<nums1.length;i++)
+        {
+            System.out.print(nums1[i]+" ");
+        }
+        System.out.print("] and");
+        System.out.print("[ ");
+        for (int i=0; i<nums2.length;i++)
+        {
+            System.out.print(nums2[i]+" ");
+        }
+        System.out.print("]");
+        
+        
+        //Combining two arrays into a single array
+        
+        for (int i=0; i<nums1.length; i++)
+        {
+            numbers[i] = nums1[i];
+        }
+        for (int i=0; i<nums2.length; i++)
+        {
+            numbers[nums1.length+i] = nums2[i];
+        }
+        
+
+
+        // Sorting numbers in the array
+
+        for (int i = 0; i < numbers.length; i++)
+        {
+            for (int j = i + 1; j < numbers.length; j++)
+            {
+                if (numbers[i] > numbers[j])
+                {
+                    temp = numbers[i];
+                    numbers[i] = numbers[j];
+                    numbers[j] = temp;
+                }
+            }
+        }
+        System.out.println("\nSorted array = ");
+        for(int i=0;i<numbers.length;i++){
+            System.out.print(numbers[i] + " ");
+        }
+
+        //Median of the array:
+        
+        if((numbers.length%2) != 0)               //When there are odd number of values in the array
+        {
+            int middle = numbers.length/2;
+            double medianArray = numbers[middle];
+            System.out.println("Median = "+medianArray);
+        }
+        else                                    //When there are even number of values in the array
+        {
+            int middle1 = numbers.length/2;
+            int middle2 = middle1 - 1;
+            double medianArray = ((numbers[middle1] + numbers[middle2])/2.0);
+            System.out.println("Median = "+medianArray);
+        }
+
+        return median;
+    }
+
+    
+
+}
