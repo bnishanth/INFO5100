@@ -1,0 +1,84 @@
+class Student
+{
+    String name,id;
+    Student(String name, String id)
+    {
+        this.name = name;
+        this.id = id;
+    }
+    public String getName()
+    {
+        return this.name;
+    }
+    public String getId()
+    {
+        return this.id;
+    }
+}
+
+class Course
+{
+    String name;
+    private int numberOfStudents;
+    private Student[] students;
+    Course(String name)
+    {
+        this.name = name;
+        this.numberOfStudents = 0;
+        this.students = new Student[10];
+    }
+
+    public Student[] getStudents()
+    {
+        return this.students;
+    }
+    public boolean isFull()
+    {
+        if(this.numberOfStudents < 10)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    public String getTitle()
+    {
+        return this.name;
+    }
+    public int getNumberOfStudents()
+    {
+        return this.numberOfStudents;
+    }
+    public void registerStudent(Student student)
+    {
+        if(this.isFull())
+        {
+            System.out.println("Course is full");
+            return;
+        }
+        else
+        {
+            this.numberOfStudents = this.numberOfStudents + 1;
+            this.students[numberOfStudents-1] = student;
+        }
+    }
+}
+
+
+
+
+
+public class CourseRegistration
+{
+    public static void main(String args[])
+    {
+        Course cou = new Course("Java");
+        Student stu = new Student("Nishanth","121");
+        cou.registerStudent(st);
+        System.out.println(cou.getTitle() + " "+cou.getNumberOfStudents() + " ");
+        System.out.println(stu.getName()+ " "+ stu.getId());
+    }
+}
+

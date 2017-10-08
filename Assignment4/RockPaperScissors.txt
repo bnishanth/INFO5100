@@ -1,0 +1,153 @@
+
+    class Tool
+    {
+        protected int strength;
+        protected char type;
+
+        public Tool()
+        {
+        }
+        public Tool(int x)
+        {
+            this.strength = x;
+        }
+        public Tool(int x, char c)
+        {
+            this.strength = x;
+            this.type = c;
+        }
+
+
+        public void setStrength(int x)
+        {
+            this.strength = x;
+        }
+        public void setType(char c)
+        {
+            this.type = c;
+        }
+        public int getStrength()
+        {
+            return this.strength;
+        }
+        public char getType()
+        {
+            return  this.type;
+        }
+
+        public boolean fight(Tool tool)
+        {
+            if(this.strength > tool.strength)
+                return true;
+            else
+                return false;
+        }
+    }
+
+    //Implement class Rock:
+
+    class Rock extends Tool
+    {
+        public Rock()
+        {
+            this.type = 'r';
+        }
+        public Rock(int x)
+        {
+            this.strength = x;
+            this.type = 'r';
+        }
+
+        public boolean fight(Tool tool)
+        {
+            if (tool.type == 'p')
+            {
+                return  this.strength > tool.strength*2;
+            }
+            else
+                if (tool.type == 's')
+                {
+                    return  this.strength*2 > tool.strength;
+                }
+                else
+                {
+                    return this.strength > tool.strength;
+                }
+        }
+    }
+
+    //Implement class Paper
+    class Paper extends Tool
+    {
+        public Paper()
+        {
+            this.type = 'p';
+        }
+        public Paper(int x)
+        {
+            this.strength = x;
+            this.type = 'p';
+        }
+
+        public boolean fight(Tool tool)
+        {
+            if(tool.type == 'r')
+            {
+                return this.strength * 2 > tool.strength;
+            }
+            else
+                if (tool.type == 's')
+                {
+                    return this.strength > tool.strength *2;
+                }
+                else
+                {
+                    return  this.strength > tool.strength;
+                }
+        }
+    }
+
+    //Implement class Scissors
+    class Scissors extends  Tool
+    {
+        public Scissors()
+        {
+            this.type = 's';
+        }
+        public Scissors(int x)
+        {
+            this.strength = x;
+            this.type = 's';
+        }
+
+        public boolean fight(Tool tool)
+        {
+            if(tool.type == 'r')
+            {
+                return this.strength > tool.strength*2;
+            }
+            else
+                if(tool.type == 'p')
+                {
+                    return this.strength * 2 > tool.strength;
+                }
+                else
+                {
+                    return this.strength > tool.strength;
+                }
+        }
+    }
+
+
+    class RockPaperScissors{
+        public static void main(String args[])
+        {
+            Rock r = new Rock(15);
+            Paper p = new Paper(7);
+            Scissors s=  new Scissors(5);
+            System.out.println(s.fight(p) + "," + p.fight(s));
+            System.out.println(p.fight(r) + "," + r.fight(p));
+            System.out.println(r.fight(s) + "," + s.fight(r));
+        }
+
+    }
