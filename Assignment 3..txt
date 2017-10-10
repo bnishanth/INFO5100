@@ -1,3 +1,5 @@
+score 6 + extra credit 1
+
 package com.company;
 
 import java.util.Scanner;
@@ -27,14 +29,14 @@ public class Assignment3 {
 
 
 	//3rd question
-   public String removeVowelsFromString(String input)
+   public String removeVowelsFromString(String input) // score 1. you should consider uppercase vowels also
     {
         System.out.println("Initial string: " + input);
         for (int i=0;i<input.length();i++)
         {
             if(input.charAt(i) == 'a'|| input.charAt(i) == 'e'|| input.charAt(i) == 'i'|| input.charAt(i) == 'o'|| input.charAt(i) == 'u')
             {
-                input = input.replace(input.charAt(i),' ');
+                input = input.replace(input.charAt(i),' '); // you have to replace with empty Character.MIN_VALUE, not space
             }
         }
         System.out.println("String after removing vowels: "+input);
@@ -43,7 +45,7 @@ public class Assignment3 {
 
 
 	//4th question
-    public boolean checkIfTwoStringsAreAnagrams(String s1, String s2) {
+    public boolean checkIfTwoStringsAreAnagrams(String s1, String s2) { // score 2 
 
 
         if (s1.length() != s2.length())
@@ -73,13 +75,13 @@ public class Assignment3 {
             }
             }
 
-        return false;
+        return false; // no need of this when the previous return statement is in else
     }
 
 
 
 	//5th question
-    public static void calculator() {
+    public static void calculator() { // score 3 + extra credit 1 , we asked to return values not print to console
         System.out.println("What do you want to perform?\n1.Arithmetic operations\n2.Root and Cube Operations\n3.Conversions\n4.quadratic equations ");
         Scanner scan = new Scanner(System.in);
         int choice = scan.nextInt();
