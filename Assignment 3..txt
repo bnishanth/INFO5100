@@ -1,4 +1,4 @@
-score 6 + extra credit 1
+score 8 + extra credit 1 = total score 9
 
 package com.company;
 
@@ -224,7 +224,7 @@ public class Assignment3 {
 
 
 
-//2nd question
+//2nd question // score 1
 class Clock{
 	String time;
 
@@ -237,7 +237,7 @@ class Clock{
 
 
 
-//1st question
+//1st question // score 1
 There are two errors.
 
 public setName(String name){		/*This doesn't have a return type and it is mandatory to have it. So it should be changed to public String setName(String name) */
