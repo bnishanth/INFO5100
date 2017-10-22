@@ -1,0 +1,39 @@
+
+import java.util.Random;
+
+public class MyIndexOutOfBoundException extends RuntimeException
+{
+
+    int lowerBound, upperBound, index;
+
+    MyIndexOutOfBoundException(int presentindex, int low, int high)
+    {
+        this.index = presentindex;
+        this.lowerBound = low;
+        this.upperBound = high;
+    }
+
+    public String toString()
+    {
+        return "Error Message: Index: " + this.index + " is not between Lower bound: " + this.lowerBound + " and Upper bound: " + this.upperBound;
+    }
+
+    public static void main(String[] args)
+    {
+        // TODO code application logic
+
+        Random ran = new Random();
+        int l = ran.nextInt(100);
+        int h = ran.nextInt(200) + 99;
+        int ind = ran.nextInt(300) ;
+
+        if (ind < h && ind > l)
+        {
+            System.out.println("Index " + ind + " is between lower " + l  + " and upper bound "+h);
+        }
+        else
+        {
+            throw new MyIndexOutOfBoundException(ind, l, h);
+        }
+    }
+}
