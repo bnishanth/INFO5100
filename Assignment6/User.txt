@@ -1,0 +1,17 @@
+
+public class User
+{
+    String name, address, phoneNumber, bankAccountNumber;
+    int age;
+
+    public User() {}
+
+    public User(int age, String name,String address,String phoneNumber,String bankAccountNumber)
+    {
+        this.age=age;
+        this.name=name;
+        this.address=address;
+        this.phoneNumber=phoneNumber;
+        this.bankAccountNumber=bankAccountNumber;
+    }
+}
