@@ -1,0 +1,304 @@
+import java.util.HashMap;
+import java.util.Scanner;
+import java.util.Stack;
+
+
+public class Atm
+{
+
+        Scanner sc=new Scanner(System.in);
+        public double availableAmountInMachine, transactionFee;
+        public HashMap<User, String> userData;  
+        public HashMap<String, Double> accountbalance;
+        public HashMap<String, Stack<String>> transactions;
+        public Atm () {}
+        public Atm (double amount, double tf) 
+        {
+            this.availableAmountInMachine=amount;
+            this.transactionFee=tf;
+            this.userData=new HashMap<>();
+            this.accountbalance=new HashMap<>();
+            this.transactions=new HashMap<>();
+        }
+
+        public void main(String[] args) {
+            Atm a=new Atm(50000.0f,.05f);
+            User nishanth=new User(22,"Nishanth","","4442225555","7474");
+            a.createuser(nishanth, "7474", "nishanthneu");
+            a.accountbalance.put("7474", 5000.00);
+            a.run();
+        }
+
+
+        public boolean start() {
+            System.out.println("Enter 'N' for New user or 'C' for Current user");
+            while (true) {
+                char input = sc.next().charAt(0);
+                if (input == 'N') {
+                    return true;
+                }
+                if (input == 'C') {
+                    return false;
+                } else {
+                    System.out.println("Invalid input, try again");
+                    System.out.println();
+                }
+            }
+        }
+
+        public void createuserP() {
+            User temp = new User();
+            String acc = String.format("%04d", userData.size());
+            temp.bankAccountNumber = acc;
+            System.out.println("Your new account number is " + acc);
+            while (true) {
+                System.out.println("Please enter your password");
+                String input1 = sc.next();
+                System.out.println("Please enter your password again");
+                String input2 = sc.next();
+                if (input1.equals(input2)) {
+                    createuser(temp,acc,input1);
+                    return;
+                }
+            }
+        }
+
+        public void createuser(User u,String acc,String pw) {
+            userData.put(u, pw);
+            accountbalance.put(acc, 0.0);
+            transactions.put(acc, new Stack<String>());
+            System.out.println("You can login entering phone number and password");
+            return;
+        }
+    
+
+        public User phonelogin(String ph, String pw) {
+            for (User u : userData.keySet()) {
+                if (u.phoneNumber.equals(ph) && userData.get(u).equals(pw)) {
+                    return u;
+                }
+            }
+            return null;
+        }
+
+        public User loginP() {
+            boolean in = false;
+            User temp = new User();
+            while (!in) {
+                System.out.println("input Y to login");
+                System.out.println("input F if you forgot your password");
+                char input = sc.next().charAt(0);
+                if (input == 'Y') {
+                    System.out.println("Please enter your phone number");
+                    String ph = sc.next();
+                    System.out.println("Please enter your password");
+                    String pw = sc.next();
+                    if (!phonelogin(ph,pw).equals(null)) {
+                        return phonelogin(ph,pw);
+                    }
+                    System.out.println("Invalid combination");
+                    continue;
+                }
+                if (input == 'F') {
+                    resetpwP();
+                } else
+                    System.out.println("Invalid input, try again");
+            }
+            return temp;
+        }
+
+        public User resetpwValidate(String ph,String name, String age) {
+            for (User u : userData.keySet()) {
+                if (u.phoneNumber.equals(ph)) {
+                    if ( u.name.equals(name) && u.age == Integer.parseInt(age)) {
+                        return u;
+                    }
+                }
+            }
+            return null;
+        }
+
+
+        public void changepw(User u, String npw) {
+            userData.replace(u, npw);
+            System.out.println("Your password is changed!");
+            return;
+        }
+
+        public void resetpwP() {
+            User temp = new User();
+            while (true) {
+                System.out.println("Please enter your phone number");
+                String ph = sc.next();
+                System.out.println("Please enter your name");
+                String name = sc.next();
+                System.out.println("Please enter your age");
+                String age = sc.next();
+                if (!resetpwValidate(ph,name,age).equals(null)) {
+                    temp=resetpwValidate(ph,name,age);
+                    break;
+                }
+            }
+            while (true) {
+                System.out.println("Please enter your new password");
+                String input1 = sc.next();
+                System.out.println("Please enter your new password again");
+                String input2 = sc.next();
+                if (input1.equals(input2)) {
+                    changepw(temp,input1);
+                    break;
+                }
+            }
+        }
+
+        public void changepwP(User u) {
+            while (true) {
+                System.out.println("Please enter your new password");
+                String input1 = sc.next();
+                System.out.println("Please enter your new password again");
+                String input2 = sc.next();
+                if (input1.equals(input2)) {
+                    changepw(u,input1);
+                    break;
+                }
+            }
+        }
+
+        public double printBalance(User u) {
+            String acc = u.bankAccountNumber;
+            double b = accountbalance.get(acc);
+            System.out.println(u.name + " your available balance is " + b);
+            System.out.println("press ENTER to continue");
+            System.out.println();
+            sc.nextLine();
+
+            return b;
+        }
+
+        public int printTransactions(User u) {
+            Stack<String> l = new Stack<>();
+            int n=0;
+            if (!transactions.get(u.bankAccountNumber).isEmpty()) {
+                l.addAll(transactions.get(u.bankAccountNumber));
+                n = Math.max(10, l.size());
+                for (int i = 0; i < n; i++) {
+                    System.out.println(l.pop());
+                }
+            }
+            System.out.println();
+            System.out.println("press ENTER to continue");
+            System.out.println();
+            sc.nextLine();
+            return n;
+        }
+
+        public boolean deposit(User u, double d) {
+            double b = accountbalance.get(u.bankAccountNumber);
+            StringBuilder sb = new StringBuilder("deposit - ");
+            accountbalance.replace(u.bankAccountNumber, b + d - transactionFee);
+            availableAmountInMachine += d;
+            sb.append(d);
+            transactions.get(u.bankAccountNumber).push(sb.toString());
+            b = accountbalance.get(u.bankAccountNumber);
+            System.out.println("Your deposit is done, transaction fee of " + transactionFee + " is applied");
+            System.out.println(u.name + " your available balance is " + b);
+            System.out.println();
+            return true;
+        }
+
+        public void depositP(User u) {
+            double b = accountbalance.get(u.bankAccountNumber);
+            while (true) {
+                System.out.println(u.name + ", your available balance is " + b);
+                System.out.println("Please input the amount to deposit");
+                double d = Double.parseDouble(sc.next());
+                if (d<=0.0) {
+                    System.out.println("Please input a valid positive amount");
+                    continue;
+                }
+                if(deposit(u,d))break;
+            }
+            System.out.println("press ENTER to continue");
+            sc.nextLine();
+            return;
+        }
+
+        public boolean withDrawal(User u,double w) {
+            String acc = u.bankAccountNumber;
+            double b = accountbalance.get(acc);
+            StringBuilder sb = new StringBuilder("withDrawal - ");
+            if (w > b - transactionFee) {
+                System.out.println(
+                        "Sorry, that (plus the transaction fee) exceeded the available amount in your account");
+                return false;
+            }
+            accountbalance.replace(acc, b - w - transactionFee);
+            availableAmountInMachine -= w;
+            sb.append(w);
+            transactions.get(acc).push(sb.toString());
+            b = accountbalance.get(acc);
+            System.out.println("Your withdrawal is done, transaction fee of " + transactionFee + " is applied");
+            System.out.println(u.name + " your available balance is " + b);
+            System.out.println();
+            return true;
+        }
+
+        public void withDrawalP(User u) {
+            String acc = userData.get(u);
+            double b = accountbalance.get(acc);
+            double w = 0.0;
+            while (true) {
+                System.out.println(u.name + ", your available balance is " + b);
+                System.out.println("Please input the amount to withdraw");
+                w = Double.parseDouble(sc.next());
+                if (w<=0.0) {
+                    System.out.println("Please input a valid positive amount");
+                    continue;
+                }
+                if (w > availableAmountInMachine) {
+                    System.out.println("Sorry, that exceeded the available amount in this machine");
+                    continue;
+                }
+                if (withDrawal(u,w)) break;
+            }
+            System.out.println("press ENTER to continue");
+            sc.nextLine();
+            return;
+        }
+
+        public void screen(User u) {
+            while (true) {
+                System.out.println("Hello, " + u.name + ", please press a button from the following options");
+                System.out.println("input B(Balance), T(Transactions), input W(withdraw), D(deposit),C(change password), E(exit)");
+                char input = sc.next().charAt(0);
+                if (input == 'B')
+                    printBalance(u);
+                if (input == 'T')
+                    printTransactions(u);
+                if (input == 'W')
+                    withDrawalP(u);
+                if (input == 'D')
+                    depositP(u);
+                if (input == 'C')
+                    changepwP(u);
+                if (input == 'E') {
+                    return;
+                }
+            }
+        }
+
+        public void run() {
+            while (true) {
+                boolean isnew = start();
+                if (isnew)
+                    createuserP();
+                User cur = loginP();
+                screen(cur);
+
+            }
+        }
+
+    }
+
+
+
