@@ -1,0 +1,45 @@
+
+public class reverseEvenIndices
+{
+    public static void main(String[] args)
+    {
+        int[] array = {1,2,3,4,5};
+        System.out.println("Initial array: " );
+        for(int i =0; i<array.length;i++)
+        {
+            System.out.print(array[i]);
+        }
+        reverseEvenIndices rei = new reverseEvenIndices();
+        int[] finalarray =  rei.reverseEvenIndicesTest(array);
+        System.out.println("\nFinal array: ");
+        for(int i =0; i<finalarray.length;i++)
+        {
+            System.out.print(finalarray[i]);
+        }
+    }
+
+    public static int[] reverseEvenIndicesTest(int[] nums)
+    {
+        int i = 0;
+        int n = nums.length - 1;
+        int j;
+        if (n % 2 == 0)
+        {
+            j = n;
+        }
+        else
+        {
+            j = n - 1;
+        }
+
+        while (i <= j)
+        {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+            i = i + 2;
+            j = j - 2;
+        }
+        return nums;
+    }
+}
