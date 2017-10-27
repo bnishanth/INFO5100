@@ -1,0 +1,50 @@
+
+public class arrangeCoins
+{
+    public static void main(String[] args)
+    {
+        arrangeCoins ac = new arrangeCoins();
+        ac.arrangeCoinsTest(16);
+    }
+
+
+    public int arrangeCoinsTest(int n)
+    {
+        int count = 0, output = 0;
+        for(int i =0; i<n; i++)
+        {
+            if(count < n)
+            {
+                for (int j = 0; j <= i; j++)
+                {
+                    if (count < n)
+                    {
+                        System.out.print("*");
+                        count = count + 1;
+                    }
+                }
+                System.out.println("");
+            }
+            else
+                break;
+        }
+//----
+
+        int level = 1;
+        for (long sum = 0; sum <= n; level++)
+            sum += level;
+
+        if(level - 2 > 0)
+        {
+            output = level - 2;
+        }
+        else
+            output = 0;
+        System.out.println("output = "+ output);
+
+//-----
+        //System.out.println("count = "+count);
+        return n;
+    }
+
+}

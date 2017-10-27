@@ -1,0 +1,27 @@
+
+public class countNumberOfPossibleWays
+{
+    public static void main(String[] args)
+    {
+        countNumberOfPossibleWays dice = new countNumberOfPossibleWays();
+        int output = dice.countNumberOfPossibleWaysTest(6,2,11);
+        System.out.println("No of possible outcomes = "+output);
+    }
+
+    public int countNumberOfPossibleWaysTest(int m, int n, int x)
+    {
+        if(x < n || x > m * n)
+        {
+            return 0;
+        }
+        if(n == 1)
+        {
+            return 1;
+        }
+        int sum = 0;
+        for(int i = 1; i <= m; i++)
+            sum = sum + countNumberOfPossibleWaysTest(m, n - 1, x - i);
+        return sum;
+    }
+
+}
