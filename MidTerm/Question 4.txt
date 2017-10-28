@@ -8,7 +8,7 @@ public class countNumberOfPossibleWays
         System.out.println("No of possible outcomes = "+output);
     }
 
-    public int countNumberOfPossibleWaysTest(int m, int n, int x)
+    public int countNumberOfPossibleWaysTest(int m, int n, int x)// score 10
     {
         if(x < n || x > m * n)
         {
