@@ -1,5 +1,5 @@
 
-public class arrangeCoins
+public class arrangeCoins // score 6, for input 1681692777, your function exceeded time limit
 {
     public static void main(String[] args)
     {
