@@ -1,5 +1,5 @@
 
-public class reverseEvenIndices
+public class reverseEvenIndices // score 6
 {
     public static void main(String[] args)
     {
