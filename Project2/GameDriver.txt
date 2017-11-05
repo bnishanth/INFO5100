@@ -1,0 +1,20 @@
+import java.util.Scanner;
+
+public class GameDriver {
+    public static void main(String[] args) {
+        while(true) {
+            Scanner input=new Scanner(System.in);
+            System.out.println("Enter number of players (3-6):");
+            int number = input.nextInt();
+            Game game =new Game(number);
+            game.playAGame();
+            System.out.println("\nPlay another game (y/n)?");
+            char continueGame = input.next().charAt(0);
+            if (continueGame == 'n')
+                return;
+            if (continueGame == 'y')
+                continue;
+        }
+
+    }
+}
