@@ -1,5 +1,5 @@
 
-    class Tool
+    class Tool // score 2
     {
         protected int strength;
         protected char type;
