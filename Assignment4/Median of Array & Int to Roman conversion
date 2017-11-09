@@ -17,11 +17,11 @@ public class Assignment4 {
 
 //5. Program to convert integer to roman
 
-    public String intToRoman(int num){
+    public String intToRoman(int num){ // score 2
         String roman="";
         int tempnum = num;
 
-        if (tempnum > 0 && tempnum<=3999){
+        if (tempnum > 0 && tempnum<=3999){ // try to include mininmal logic
             while (tempnum>=1000 ){
                 roman = roman + "M";
                 tempnum = tempnum - 1000;
@@ -90,7 +90,7 @@ public class Assignment4 {
 //6. Find the median of the arrays.
 
 
-    public double findMedianSortedArrays(int[] nums1, int[] nums2){
+    public double findMedianSortedArrays(int[] nums1, int[] nums2){ // score 2
         double median=0;
         int temp;
         int[] numbers = new int[nums1.length + nums2.length];
