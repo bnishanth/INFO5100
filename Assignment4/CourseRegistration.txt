@@ -16,7 +16,7 @@ class Student
     }
 }
 
-class Course
+class Course // score 2
 {
     String name;
     private int numberOfStudents;
