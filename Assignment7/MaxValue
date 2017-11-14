@@ -1,0 +1,59 @@
+
+import java.util.Random;
+
+public class MaxValue extends Thread
+{
+    private int arr[];
+    private int minimum, maximum;
+    private int maxValue = Integer.MIN_VALUE;
+
+    public MaxValue(int arr[], int minimum, int maximum)
+    {
+        this.arr = arr;
+        this.minimum = minimum;
+        this.maximum = maximum;
+    }
+
+    @Override
+    public void run()
+    {
+        for(int i = minimum; i < maximum; i ++)
+        {
+            if(this.maxValue < this.arr[i])
+                this.maxValue = this.arr[i];
+        }
+    }
+
+    public static int getMaxValue(int[] arr) throws InterruptedException
+    {
+        int len = arr.length;
+        int maxValue = Integer.MIN_VALUE;
+        MaxValue[] mv = new MaxValue[4];
+        for(int i = 0; i < 4; i++)
+        {
+            mv[i] = new MaxValue(arr, (i * len) / 4, ((i + 1) * len / 4));
+            mv[i].start();
+        }
+        Thread.sleep(3);
+        for(int i = 0; i < 4; i ++)
+        {
+            if(mv[i].maxValue > maxValue)
+                maxValue = mv[i].maxValue;
+        }
+        return maxValue;
+    }
+
+    public static void main(String[] args) throws InterruptedException
+    {
+        int[] arr = new int[100];
+        Random random = new Random();
+        for(int i = 0; i < arr.length; i++)
+        {
+            arr[i] = random.nextInt(100);
+        }
+        int maxValue = getMaxValue(arr);
+        System.out.println("Max: " + maxValue);
+
+    }
+
+}
