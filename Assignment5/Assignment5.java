@@ -1,3 +1,6 @@
+/* good Work
+ * Score 8 + extra credit 1.5; Total score 9.5
+ */
 import java.util.Vector;
 
 
@@ -41,7 +44,7 @@ public class Assignment5
 
 abstract class DessertItem
 {
-    String name;
+    String name; // access should be protected
     public DessertItem()
     {
     }
@@ -82,7 +85,7 @@ abstract class DessertItem
 
 class DessertShoppe
 {
-    int maxSize, width;
+    int maxSize, width; // the attributes should be static and final
     public String name;
     double taxRate;
     public DessertShoppe()
@@ -102,7 +105,7 @@ class DessertShoppe
 
 class Candy extends DessertItem
 {
-    double weight;
+    double weight; // access should be private
     int pricePerPound;
     public Candy(String name, double weight, int pricePerPound)
     {
