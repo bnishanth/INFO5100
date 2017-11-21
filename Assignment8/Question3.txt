@@ -1,0 +1,179 @@
+
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Year;
+import java.util.ArrayList;
+
+public class Json {
+
+    private static ArrayList<Vehicle> readAndGetVehicles(File file) throws IOException{
+        ArrayList<Vehicle> cars=new ArrayList<>();
+        FileReader fr=new FileReader(file);
+        BufferedReader br=new BufferedReader(fr);
+        String line=br.readLine();
+        while(true){
+            line=br.readLine();
+            if(line==null) break;
+            Vehicle cur=new Vehicle(line.split("~"));
+            cars.add(cur);
+        }
+        br.close();
+        fr.close();
+        return cars;
+    }
+
+    public static String getJsonString(ArrayList<Vehicle> vehicles){
+        String str=System.lineSeparator();
+        StringBuilder sbuild=new StringBuilder("{"+str);
+        sbuild.append("\""+vehicles.get(0).webId+"\" : ["+str);
+        for(int i=0;i<vehicles.size();++i){
+            sbuild.append("{"+str);
+            sbuild.append(vehicle2Json(vehicles.get(i)));
+            if(i<vehicles.size()-1) sbuild.append("},"+str);
+            else sbuild.append("}"+str);
+        }
+        sbuild.append("]"+str);
+        sbuild.append("}"+str);
+
+        return sbuild.toString();
+    }
+
+    private static String vehicle2Json(Vehicle c){
+        String str=System.lineSeparator();
+        StringBuilder sbuild=new StringBuilder();
+
+        sbuild.append("\"id\" : \""+c.id+"\","+str);
+        sbuild.append("\"category\" : \""+c.category+"\","+str);
+        sbuild.append("\"year\" : \""+c.year+"\","+str);
+        sbuild.append("\"make\" : \""+c.make+"\","+str);
+        sbuild.append("\"model\" : \""+c.model+"\","+str);
+        sbuild.append("\"trim\" : \""+c.trim+"\","+str);
+        if (c.type.isEmpty()) sbuild.append("\"type\" : null,"+str);
+        else sbuild.append("\"type\" : \""+c.type+"\","+str);
+        sbuild.append("\"price\" : "+c.price+","+str);
+        sbuild.append("\"photo\" : \""+c.photo+"\","+str);
+        return sbuild.toString();
+    }
+
+    public static void writeToFile(String inputToWrite, String filePath) throws IOException{
+        File res=new File(filePath+"/res.txt");
+        res.createNewFile();
+        FileWriter fw=new FileWriter(res);
+        fw.write(inputToWrite);
+        fw.close();
+    }
+
+
+
+    public static void original(File file) throws IOException{
+        File back=new File(file.getParent()+"/back.txt");
+
+        FileReader fr=new FileReader(file);
+        BufferedReader br=new BufferedReader(fr);
+
+        FileWriter fw = new FileWriter(back);
+        PrintWriter pw = new PrintWriter(fw);
+
+        StringBuilder sbuild=new StringBuilder();
+
+        pw.println("id~webId~category~year~make~model~trim~type~price~photo");
+        String in=br.readLine();
+        String webid=br.readLine().split("\"")[1];
+
+        while (true){
+            in=br.readLine();
+            if (in==null) break;
+            if (in.contains("{")) {
+                for (int i=0;i<10;++i) {
+                    if (i==1) sbuild.append(webid);
+                    else {
+                        String[] line=br.readLine().split("\"");
+                        if (line.length>3) sbuild.append(line[3]);
+                        else sbuild.append(line[2]);
+                    }
+                    if (i<9) sbuild.append("~");
+                }
+                continue;
+            }
+            if (in.contains("}")) {
+                pw.println(sbuild.toString());
+                sbuild.setLength(0);
+                continue;
+            }
+        }
+        br.close();
+        pw.close();
+    }
+
+    public static void main(String[] args) throws IOException{
+        File file = new File("assignment8/q3.txt");
+        ArrayList<Vehicle> vehicles = readAndGetVehicles(file);
+        String s = getJsonString(vehicles);
+        writeToFile(s, file.getParent());
+        original(new File("assignment8/res.txt"));
+
+    }
+
+}
+
+class Vehicle{
+
+    String id;
+    String webId;
+    Category category;
+    Year year;
+    String make;
+    String model;
+    String trim;
+    String type;
+    double price;
+    URL photo;
+
+    Vehicle(String[] arr){
+        this.id = arr[0];
+        this.webId = arr[1];
+        this.category = Category.getCategory(arr[2].toLowerCase());
+        this.year = Year.parse(arr[3]);
+        this.make = arr[4];
+        this.model = arr[5];
+        this.trim = arr[6];
+        this.type = arr[7];
+        this.price = Double.parseDouble(arr[8]);
+        try {
+            this.photo = new URL(arr[9]);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+
+enum Category{
+    NEW , USED, CERTIFIED;
+
+    public static Category getCategory(String cat){
+        switch (cat){
+            case "used": return USED;
+            case "new": return NEW;
+            case "certified": return CERTIFIED;
+            default: throw new IllegalArgumentException();
+        }
+    }
+
+    @Override
+    public String toString() {
+        switch (this){
+            case NEW: return "NEW";
+            case USED: return "USED";
+            case CERTIFIED: return "CERTIFIED";
+            default: throw new IllegalArgumentException();
+        }
+    }
+}
