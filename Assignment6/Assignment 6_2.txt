@@ -1,3 +1,6 @@
+/* Good work
+ * Total score 10
+ */
 import java.io.IOException;
 import java.io.*;
 
