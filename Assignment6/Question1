@@ -1,7 +1,7 @@
 
 import java.util.Random;
 
-public class MyIndexOutOfBoundException extends RuntimeException
+public class MyIndexOutOfBoundException extends RuntimeException // score 2
 {
 
     int lowerBound, upperBound, index;
