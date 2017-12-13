@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class LyricAnalyser {
+public class LyricAnalyser { // score 4
 
     private HashMap<String, ArrayList<Integer>> map;
 
