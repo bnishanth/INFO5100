@@ -1,3 +1,6 @@
+/* GOod Work
+ * Total score 10
+ */
 package com.company;
 
 public class Main {
