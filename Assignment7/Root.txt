@@ -1,4 +1,4 @@
-class Device {
+class Device {// score 2
     public void startup() {
     	System.out.println("Device starting");
     } // print to console that device is starting
