@@ -1,4 +1,6 @@
-
+/* GOod WOrk
+ * Total score 10
+ */
 
 import java.io.BufferedReader;
 import java.io.File;
