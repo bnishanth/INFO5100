@@ -1,3 +1,7 @@
+/* Good Work
+ * score 19
+ * you are undealing hearts and getting score of 26 
+ */
 import java.util.Scanner;
 
 public class GameDriver {
